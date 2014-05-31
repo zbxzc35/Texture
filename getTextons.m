@@ -44,7 +44,7 @@ disp('* getting filter responses...');
 data_cell = cell(size(trainImgs_cell, 1), size(trainImgs_cell, 2));
 for imgInd=1:size(trainImgs_cell, 1)
     fprintf('- %d/%d\n', imgInd, size(trainImgs_cell, 1));
-    smapleStep = i_sampleStep;
+    sampleStep = i_sampleStep*i_scales;
     data_cell_s = cell(1, size(trainImgs_cell, 2));
     for sInd=1:size(trainImgs_cell, 2)
         curImg = trainImgs_cell{imgInd, sInd};
@@ -53,7 +53,7 @@ for imgInd=1:size(trainImgs_cell, 1)
             curResp(:, :, fInd) = conv2(curImg, i_fb(:, :, fInd), 'same');
         end
         data_cell_s{1, sInd} = reshape(curResp, [size(curResp, 1)*size(curResp, 2) size(curResp, 3)]);
-        data_cell_s{1, sInd} = data_cell_s{1, sInd}(1:round(smapleStep(sInd)):end, :);
+        data_cell_s{1, sInd} = data_cell_s{1, sInd}(1:round(sampleStep(sInd)):end, :);
     end
     data_cell(imgInd, :) = data_cell_s;
 end
