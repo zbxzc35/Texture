@@ -1,4 +1,4 @@
-function [ o_tbParams_parts ] = initTextonboost( i_tbParams_layoutFilterWH, i_tbParams_nParts )
+function [ o_tbParams_parts ] = initTextonboost( i_tbParams_layoutFilterWH, i_tbParams_nParts, i_debugOpt )
 %INITTEXTONBOOST Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -16,6 +16,15 @@ for pInd=1:i_tbParams_nParts
     end
     
     o_tbParams_parts = [o_tbParams_parts [min(xs); max(xs); min(ys); max(ys)]];
+end
+
+if i_debugOpt >= 1
+    figure(34125); clf;
+    rectangle('Position', [1 1 tbWH(:)']); hold on; % layoutFilter
+    for pInd=1:i_tbParams_nParts
+        subWin = o_tbParams_parts(:, pInd)';
+        rectangle('Position', [subWin(1) subWin(3) subWin([2,4]) - subWin([1 3])]); hold on; % subwindows
+    end
 end
 
 end
