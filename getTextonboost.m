@@ -1,4 +1,4 @@
-function [ o_feat ] = getTextonboost( i_tbParams, i_input, i_imgInd, i_xys )
+function [ o_feat ] = getTextonboost( i_tbParams, i_input, i_x_meta )
 %GETTEXTONBOOST Summary of this function goes here
 %   Detailed explanation goes here
 %   i_tbParams.parts(:, i)      ith rectangle in the form of [xmin; xmax; ymin; ymax] 
@@ -16,9 +16,10 @@ nTextons = size(i_tbParams.textons, 2);
 
 %% extract a feature
 o_feat = zeros(nParts*nTextons, 1);
-% parfor (fInd=1:nParts*nTextons, 24)
-for fInd=1:nParts*nTextons
-    o_feat(fInd) = getithTextonboost(i_tbParams, i_input, i_imgInd, i_xys, fInd);
+parfor (fInd=1:nParts*nTextons, 32)
+% for fInd=1:nParts*nTextons
+%     o_feat(fInd) = getithTextonboost(i_tbParams, i_input, i_imgInd, i_xys, fInd);
+    o_feat(fInd) = getithTextonboost( i_tbParams, i_input, i_x_meta, fInd );
 end
 end
 
